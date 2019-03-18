@@ -11,14 +11,22 @@ def test_find_all():
     s_list.add_in_tail(Node(130))
     s_list.print_all_nodes()
     try:
-        if s_list.find_all(55) == [55,55]:
+        arr_node = s_list.find_all(55)
+        arr_node_value = []
+        for i in range(len(arr_node)):
+            arr_node_value.append(arr_node[i].value)
+        if arr_node_value == [55,55]:
             print("test for value success")
         else:
             print("test for value failed")
     except Exception:
         print("error test find all")
     try:
-        if s_list.find_all(1000) == []:
+        arr_node = s_list.find_all(1000)
+        arr_node_value = []
+        for i in range(len(arr_node)):
+            arr_node_value.append(arr_node[i].value)
+        if arr_node_value == []:
             print("test for None success")
         else:
             print("test for None failed")
