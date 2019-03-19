@@ -32,7 +32,7 @@ def test_find_all():
             print("test for None failed")
     except Exception:
         print("error test find all")
-#test_find_all()
+test_find_all()
 
 
 def test_delete():
@@ -150,7 +150,7 @@ def test_delete():
             print("test for two, flag=True failed")
     except Exception:
         print("error test delete")
-#test_delete()
+test_delete()
 
 
 def test_clean():
@@ -172,7 +172,7 @@ def test_clean():
             print("test for clean failed")
     except Exception:
         print("error test clean")
-#test_clean()
+test_clean()
 
 
 def test_length():
@@ -192,28 +192,40 @@ def test_length():
             print("test lenght failed")
     except Exception:
         print("error test lenght")
-#test_length()
+test_length()
 
 
 def test_insert():
     print("------TEST INSERT------")
     s_list = LinkedList()
-    s_list.add_in_tail(Node(12))
-    s_list.add_in_tail(Node(55))
-    s_list.add_in_tail(Node(128))
-    s_list.add_in_tail(Node(55))
-    s_list.add_in_tail(Node(130))
+    n1 = Node(12)
+    n2 = Node(55)
+    n3 = Node(128)
+    n4 = Node(55)
+    n5 = Node(130)
+    n1.next = n2
+    n2.next = n3
+    n3.next = n4
+    n4.next = n5
+    s_list.add_in_tail(n1)
+    s_list.add_in_tail(n2)
+    s_list.add_in_tail(n3)
+    s_list.add_in_tail(n4)
+    s_list.add_in_tail(n5)
     s_list.print_all_nodes()
     print("---------------")
     try:
-        s_list.insert(128, 1001)
+        nnew = Node(1001)
+        s_list.insert(n2, nnew)
         s_list.print_all_nodes()
+        print("head", s_list.head, s_list.head.value)
+        print("tail", s_list.tail, s_list.tail.value)
         node = s_list.head
         count = 0
         while node != None:
-            if node.value == 128 and node.next.value == 1001:
+            if node.value == 55 and node.next.value == 1001:
                 count = count + 1
-            if node.value == 1001 and node.next.value == 55:
+            if node.value == 1001 and node.next.value == 128:
                 count = count + 1
             node = node.next
         if count == 2:
@@ -226,12 +238,13 @@ def test_insert():
     print("------empty linked list------")
     s_list_empty = LinkedList()
     s_list_empty.print_all_nodes()
+    nnew_empty = Node(10001)
     try:
-        s_list_empty.insert(128, 1001)
+        s_list_empty.insert(n2, nnew_empty)
         s_list_empty.print_all_nodes()
         print(s_list_empty.head, s_list_empty.head.value)
         print(s_list_empty.tail, s_list_empty.tail.value)
-        if s_list_empty.head.value == 1001 and s_list_empty.tail.value == 1001 \
+        if s_list_empty.head.value == 10001 and s_list_empty.tail.value == 10001 \
                 and s_list_empty.head == s_list_empty.tail:
             print("test insert in empty list success")
         else:
@@ -239,4 +252,3 @@ def test_insert():
     except Exception:
         print("error test insert")
 test_insert()
-
