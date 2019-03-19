@@ -32,7 +32,7 @@ def test_find_all():
             print("test for None failed")
     except Exception:
         print("error test find all")
-test_find_all()
+#test_find_all()
 
 
 def test_delete():
@@ -150,7 +150,7 @@ def test_delete():
             print("test for two, flag=True failed")
     except Exception:
         print("error test delete")
-test_delete()
+#test_delete()
 
 
 def test_clean():
@@ -172,7 +172,7 @@ def test_clean():
             print("test for clean failed")
     except Exception:
         print("error test clean")
-test_clean()
+#test_clean()
 
 
 def test_length():
@@ -192,7 +192,7 @@ def test_length():
             print("test lenght failed")
     except Exception:
         print("error test lenght")
-test_length()
+#test_length()
 
 
 def test_insert():
@@ -222,4 +222,21 @@ def test_insert():
             print("test insert failed")
     except Exception:
         print("error test insert")
+
+    print("------empty linked list------")
+    s_list_empty = LinkedList()
+    s_list_empty.print_all_nodes()
+    try:
+        s_list_empty.insert(128, 1001)
+        s_list_empty.print_all_nodes()
+        print(s_list_empty.head, s_list_empty.head.value)
+        print(s_list_empty.tail, s_list_empty.tail.value)
+        if s_list_empty.head.value == 1001 and s_list_empty.tail.value == 1001 \
+                and s_list_empty.head == s_list_empty.tail:
+            print("test insert in empty list success")
+        else:
+            print("test insert in empty list failed")
+    except Exception:
+        print("error test insert")
 test_insert()
+

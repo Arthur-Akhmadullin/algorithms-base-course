@@ -115,12 +115,12 @@ class LinkedList:
 
     def insert(self, afterNode, new):
 
-        newNode = Node(new)
         if self.head == None:
-            return
+            self.add_in_tail(Node(new))
         node = self.head
         while node is not None:
             if node.value == afterNode:
+                newNode = Node(new)
                 newNode.next = node.next
                 node.next = newNode
                 if node.next.next == None:
