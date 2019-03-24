@@ -85,13 +85,54 @@ class LinkedList2:
                 break
 
     def clean(self):
-        pass # здесь будет ваш код
+        if self.head == None:
+            return
+        node = self.head
+        while node is not None:
+            self.head = self.head.next
+            node.value = None
+            node.next = None
+            node = self.head
+            if node == None:
+                self.tail = None
+            else:
+                self.head.prev = None
+        return
 
     def len(self):
-        return 0 # здесь будет ваш код
+        if self.head is None:
+            return 0
+        node = self.head
+        self.length = 0
+        while node is not None:
+            node = node.next
+            self.length += 1
+        return self.length
+
+
 
     def insert(self, afterNode, newNode):
-        pass # здесь будет ваш код
+        if afterNode == None and (self.head is None or self.head is not None):
+            self.add_in_tail(newNode)
+        node = self.head
+        while node is not None:
+            if node == afterNode:
+                newNode.next = node.next
+                newNode.prev = node
+                node.next.prev = newNode
+                node.next = newNode
+                if node.next.next == None:
+                    self.tail = node.next
+                break
+            node = node.next
+        return
+
 
     def add_in_head(self, newNode):
-        pass # здесь будет ваш код
+        if self.head is None:
+            self.add_in_tail(newNode)
+        else:
+            self.head.prev = newNode
+            newNode.next = self.head
+            newNode.prev = None
+            self.head = self.head.prev

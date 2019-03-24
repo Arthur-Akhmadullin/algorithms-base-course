@@ -20,7 +20,7 @@ s_list.add_in_tail(n2)
 s_list.add_in_tail(n3)
 s_list.add_in_tail(n4)
 s_list.add_in_tail(n5)
-
+'''
 s_list.print_all_nodes()
 
 arr_node = s_list.find_all(12)
@@ -30,8 +30,41 @@ for i in range(len(arr_node)):
 print("--------")
 s_list.delete(13, True)
 s_list.print_all_nodes()
-#print(n1.next.value)
-#print(n3.next.value)
+print(n1.next.value)
+print(n3.next.value)
 print(s_list.head, s_list.tail)
-#print(n1,n4)
+print(n1,n4)
 
+print("--------")
+n6 = Node(99)
+s_list.insert(None, n6)
+s_list.print_all_nodes()
+print(s_list.head, n6, s_list.tail)
+
+print(n5, n6.prev)
+print(n5.next, n6)
+print(n6, n4.prev)
+print(n6.next, n4)
+
+print("--------")
+s_list.print_all_nodes()
+n6 = Node(99)
+s_list.add_in_head(n6)
+print("----------")
+s_list.print_all_nodes()
+print(s_list.head, n6, s_list.tail, n5)
+print(n6.next, n1)
+print(n6, n1.prev)
+
+s_list.print_all_nodes()
+print("--------")
+s_list.clean()
+s_list.print_all_nodes()
+print(s_list.head, s_list.tail)
+node = s_list.head
+while node is not None:
+    print(node, node.value)
+'''
+s_list.print_all_nodes()
+print("--------")
+print(s_list.len())
