@@ -10,13 +10,6 @@ class LinkedList2:
         self.tail = None
 
 
-    def print_all_nodes(self):
-        node = self.head
-        while node != None:
-            print(node.value)
-            node = node.next
-
-
     def add_in_tail(self, item):
         if self.head is None:
             self.head = item
@@ -52,7 +45,7 @@ class LinkedList2:
             return
 
         node = self.head
-        #old = None
+
         while node is not None and node.value == val:
             self.head = self.head.next
             node = self.head
@@ -76,8 +69,7 @@ class LinkedList2:
             else:
                 old.next.prev = node.prev
             node = old.next
-            #if old.next == None:
-                #self.tail = old
+
             if all == False:
                 break
 
