@@ -9,11 +9,13 @@ class LinkedList2:
         self.head = None
         self.tail = None
 
+
     def print_all_nodes(self):
         node = self.head
         while node != None:
             print(node.value)
             node = node.next
+
 
     def add_in_tail(self, item):
         if self.head is None:
@@ -25,6 +27,7 @@ class LinkedList2:
             item.prev = self.tail
         self.tail = item
 
+
     def find(self, val):
         node = self.head
         while node is not None:
@@ -32,6 +35,7 @@ class LinkedList2:
                 return node
             node = node.next
         return None
+
 
     def find_all(self, val):
         array_nodes = []
@@ -48,12 +52,10 @@ class LinkedList2:
             return
 
         node = self.head
-        old = None
-
+        #old = None
         while node is not None and node.value == val:
             self.head = self.head.next
             node = self.head
-
             if self.head == None:
                 self.tail = None
             else:
@@ -61,15 +63,11 @@ class LinkedList2:
             if all == False:
                 return
 
-
         while node is not None:
-
             while node is not None and node.value != val:
                 node = node.next
-
             if node is None:
                 return
-
             old = node
             old.prev.next = node.next
             if node == self.tail:
@@ -80,9 +78,9 @@ class LinkedList2:
             node = old.next
             #if old.next == None:
                 #self.tail = old
-
             if all == False:
                 break
+
 
     def clean(self):
         if self.head == None:
@@ -97,17 +95,17 @@ class LinkedList2:
                 self.tail = None
             else:
                 self.head.prev = None
-        return
+
 
     def len(self):
         if self.head is None:
             return 0
         node = self.head
-        self.length = 0
+        length = 0
         while node is not None:
             node = node.next
-            self.length += 1
-        return self.length
+            length = length + 1
+        return length
 
 
 
@@ -119,10 +117,13 @@ class LinkedList2:
             if node == afterNode:
                 newNode.next = node.next
                 newNode.prev = node
-                node.next.prev = newNode
+                if node.next == None:
+                    self.tail = newNode
+                else:
+                    node.next.prev = newNode
                 node.next = newNode
-                if node.next.next == None:
-                    self.tail = node.next
+                #if node.next.next == None:
+                    #self.tail = node.next
                 break
             node = node.next
         return
