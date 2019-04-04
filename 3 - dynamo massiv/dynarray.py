@@ -59,12 +59,13 @@ class DynArray:
             new_array[j] = self.array[j+1]
         self.array = new_array
         self.count -= 1
+        print("hoho", int(self.capacity / 1.5))
 
-        if self.count == self.capacity / 1.5:
-            self.resize(self.capacity / 1.5)
+        if self.count <= int(self.capacity / 1.5):
+            self.resize(int(self.capacity / 1.5))
 
 
-
+'''
 da = DynArray()
 for i in range(16):
     da.append(i)
@@ -76,3 +77,4 @@ for i in range(da.__len__()):
 da.delete(3)
 for i in range(da.__len__()):
     print(da[i])
+'''
