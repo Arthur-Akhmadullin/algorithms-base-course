@@ -13,7 +13,7 @@ class DynArray:
     def make_array(self, new_capacity):
         return (new_capacity * ctypes.py_object)()
 
-    def __getitem__(self,i):
+    def __getitem__(self, i):
         if i < 0 or i >= self.count:
             raise IndexError('Index is out of bounds')
         return self.array[i]
@@ -32,9 +32,7 @@ class DynArray:
         self.count += 1
 
     def insert(self, i, itm):
-
-        if i < 0 or i >= self.count:
-            raise IndexError('Index is out of bounds')
+        self.__getitem__(i)
 
         if self.count == self.capacity:
             self.resize(2*self.capacity)
@@ -49,8 +47,7 @@ class DynArray:
         self.count += 1
 
     def delete(self, i):
-        if i < 0 or i >= self.count:
-            raise IndexError('Index is out of bounds')
+        self.__getitem__(i)
 
         new_array = self.make_array(self.capacity)
         for j in range(i):
@@ -59,22 +56,6 @@ class DynArray:
             new_array[j] = self.array[j+1]
         self.array = new_array
         self.count -= 1
-        print("hoho", int(self.capacity / 1.5))
 
-        if self.count <= int(self.capacity / 1.5):
+        if self.count < (self.capacity / 2) and int(self.capacity / 1.5) >= 16:
             self.resize(int(self.capacity / 1.5))
-
-
-'''
-da = DynArray()
-for i in range(16):
-    da.append(i)
-    print (da[i])
-print("---------")
-da.insert(3,77)
-for i in range(da.__len__()):
-    print(da[i])
-da.delete(3)
-for i in range(da.__len__()):
-    print(da[i])
-'''
