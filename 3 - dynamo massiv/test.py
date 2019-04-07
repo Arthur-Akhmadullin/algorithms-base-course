@@ -1,7 +1,8 @@
 from dynarray import DynArray
 
 da = DynArray()
-for i in range(5):
+
+for i in range(32):
     da.append(i)
     print (da[i])
 print("---------")
@@ -11,19 +12,27 @@ print("Capacity", da.capacity)
 '''
 print("---------")
 print("Вставка мимо массива")
-da.insert(-1, 77)
+da.insert(0, 77)
+for i in range(da.__len__()):
+    da.append(i)
+    print (da[i])
+print("---------")
+print("Count", da.count)
+print("Capacity", da.capacity)
 '''
 
+'''
 print("---------")
 print("Вставка внутри массива, когда размер буфера не превышен")
-da.insert(0, 777)
+da.insert(3, 777)
 for i in range(da.__len__()):
     print(da[i])
 print("---------")
 print("Count", da.count)
 print("Capacity", da.capacity)
+'''
 
-
+'''
 print("---------")
 print("Повторим вставку")
 da.insert(5, 888)
@@ -33,34 +42,57 @@ for i in range(da.__len__()):
 print("---------")
 print("Count", da.count)
 print("Capacity", da.capacity)
+'''
 
-
+'''
 print("---------")
 print("Вставка, когда размер буфера превышен")
-da.insert(7, 1111)
+da.insert(14, 1111)
 for i in range(da.__len__()):
     print(da[i])
 print("---------")
 print("Count", da.count)
 print("Capacity", da.capacity)
-
+'''
 
 '''
 print("---------")
 print("Удаление за пределами массива")
-da.delete(6)
+da.delete(7)
 '''
 
-'''
+
 print("---------")
 print("Удаление, когда размер буфера остается прежним")
-da.delete(3)
+da.delete(10)
+da.delete(10)
+da.delete(10)
+da.delete(10)
+da.delete(10)
+da.delete(10)
+da.delete(10)
+da.delete(10)
+da.delete(10)
+da.delete(10)
+da.delete(10)
+da.delete(10)
+da.delete(10)
+da.delete(10)
+da.delete(10)
+da.delete(10)
+da.delete(10)
+da.delete(10)
+da.delete(10)
+da.delete(10)
+da.delete(10)
+da.delete(10)
+da.delete(6)
 for i in range(da.__len__()):
     print(da[i])
 print("---------")
 print("Count", da.count)
 print("Capacity", da.capacity)
-'''
+
 
 '''
 print("---------")
@@ -95,3 +127,4 @@ print("---------")
 print("Count", da.count)
 print("Capacity", da.capacity)
 '''
+

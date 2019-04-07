@@ -32,30 +32,33 @@ class DynArray:
         self.count += 1
 
     def insert(self, i, itm):
-        self.__getitem__(i)
-
-        if self.count == self.capacity:
-            self.resize(2*self.capacity)
-
-        new_array = self.make_array(self.capacity)
-        for j in range(i):
-            new_array[j] = self.array[j]
-        new_array[i] = itm
-        for j in range(i+1, self.count+1):
-            new_array[j] = self.array[j-1]
-        self.array = new_array
-        self.count += 1
+        if i == self.count:
+            self.append(itm)
+        elif i < 0 or i > self.count:
+            raise IndexError('Index is out of bounds')
+        else:
+            if self.count == self.capacity:
+                self.resize(2*self.capacity)
+            new_array = self.make_array(self.capacity)
+            for j in range(i):
+                new_array[j] = self.array[j]
+            new_array[i] = itm
+            for j in range(i+1, self.count+1):
+                new_array[j] = self.array[j-1]
+            self.array = new_array
+            self.count += 1
 
     def delete(self, i):
-        self.__getitem__(i)
+        if i < 0 or i >= self.count:
+            raise IndexError('Index is out of bounds')
+        else:
+            new_array = self.make_array(self.capacity)
+            for j in range(i):
+                new_array[j] = self.array[j]
+            for j in range(i, self.count-1):
+                new_array[j] = self.array[j+1]
+            self.array = new_array
+            self.count -= 1
 
-        new_array = self.make_array(self.capacity)
-        for j in range(i):
-            new_array[j] = self.array[j]
-        for j in range(i, self.count-1):
-            new_array[j] = self.array[j+1]
-        self.array = new_array
-        self.count -= 1
-
-        if self.count < (self.capacity / 2) and int(self.capacity / 1.5) >= 16:
-            self.resize(int(self.capacity / 1.5))
+            if self.count < int(self.capacity / 2) and int(self.capacity / 1.5) >= 16:
+                self.resize(int(self.capacity / 1.5))
