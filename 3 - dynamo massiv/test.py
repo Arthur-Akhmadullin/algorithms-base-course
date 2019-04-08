@@ -5,6 +5,7 @@ da = DynArray()
 for i in range(32):
     da.append(i)
     print (da[i])
+
 print("---------")
 print("Count", da.count)
 print("Capacity", da.capacity)
@@ -65,6 +66,7 @@ da.delete(7)
 print("---------")
 print("Удаление, когда размер буфера остается прежним")
 da.delete(10)
+
 da.delete(10)
 da.delete(10)
 da.delete(10)
@@ -80,13 +82,27 @@ da.delete(10)
 da.delete(10)
 da.delete(10)
 da.delete(10)
+
+da.delete(10)
+
 da.delete(10)
 da.delete(10)
 da.delete(10)
 da.delete(10)
 da.delete(10)
-da.delete(10)
+
 da.delete(6)
+da.delete(2)
+da.delete(2)
+da.delete(2)
+da.delete(0)
+da.delete(0)
+
+da.delete(0)
+da.delete(0)
+da.delete(0)
+da.delete(0)
+
 for i in range(da.__len__()):
     print(da[i])
 print("---------")
