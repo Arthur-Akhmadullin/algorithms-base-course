@@ -2,13 +2,14 @@ from dynarray import DynArray
 
 da = DynArray()
 
-for i in range(32):
+for i in range(5):
     da.append(i)
     print (da[i])
 
 print("---------")
 print("Count", da.count)
 print("Capacity", da.capacity)
+
 
 '''
 print("---------")
@@ -25,7 +26,7 @@ print("Capacity", da.capacity)
 '''
 print("---------")
 print("Вставка внутри массива, когда размер буфера не превышен")
-da.insert(3, 777)
+da.insert(16, 777)
 for i in range(da.__len__()):
     print(da[i])
 print("---------")
@@ -62,7 +63,7 @@ print("Удаление за пределами массива")
 da.delete(7)
 '''
 
-
+'''
 print("---------")
 print("Удаление, когда размер буфера остается прежним")
 da.delete(10)
@@ -108,7 +109,7 @@ for i in range(da.__len__()):
 print("---------")
 print("Count", da.count)
 print("Capacity", da.capacity)
-
+'''
 
 '''
 print("---------")
