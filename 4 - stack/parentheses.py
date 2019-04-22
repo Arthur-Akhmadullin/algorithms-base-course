@@ -9,6 +9,10 @@ from stack import Stack
 '''
 def parentheses(s):
 
+    if len(s) == 0:
+        print("Пустая строка")
+        return
+
     stack = Stack()
     balance = 0
 
@@ -38,6 +42,7 @@ stroka_balance1 = "(()())"
 stroka_balance2 = "(())()()"
 stroka_not_balance1 = "())("
 stroka_not_balance2 = "()((()"
+stroka_empty = ""
 parentheses(stroka_balance1)
 print("--------------")
 parentheses(stroka_balance2)
@@ -45,3 +50,5 @@ print("--------------")
 parentheses(stroka_not_balance1)
 print("--------------")
 parentheses(stroka_not_balance2)
+print("--------------")
+parentheses(stroka_empty)
