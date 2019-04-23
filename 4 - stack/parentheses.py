@@ -14,25 +14,20 @@ def parentheses(s):
         return
 
     stack = Stack()
-    balance = 0
 
     for i in range(len(s)):
-        stack.push(s[i])
-
-    if stack.peek() == "(" or stack.size() % 2 != 0:
-        print("Скобки не сбалансированы")
-        return
-
-    while stack.size() > 0:
-        if stack.pop() == ")":
-            balance += 1
-        else:
-            balance -= 1
-        if balance < 0:
+        if s[i] == "(":
+            stack.push(s[i])
+        elif stack.size() == 0 or stack.pop() != "(":
             print("Скобки не сбалансированы")
             return
 
-    if balance == 0:
+    if stack.size() > 0:
+        print("Скобки не сбалансированы")
+        return
+
+
+    if stack.size() == 0:
         print("Скобки сбалансированы")
         return
 
