@@ -18,9 +18,11 @@ def parentheses(s):
     for i in range(len(s)):
         if s[i] == "(":
             stack.push(s[i])
-        elif stack.size() == 0 or stack.pop() != "(":
+        elif stack.size() == 0:
             print("Скобки не сбалансированы")
             return
+        else:
+            stack.pop()
 
     if stack.size() > 0:
         print("Скобки не сбалансированы")
@@ -35,7 +37,7 @@ def parentheses(s):
 
 stroka_balance1 = "(()())"
 stroka_balance2 = "(())()()"
-stroka_not_balance1 = "())("
+stroka_not_balance1 = ")())("
 stroka_not_balance2 = "()((()"
 stroka_empty = ""
 parentheses(stroka_balance1)
