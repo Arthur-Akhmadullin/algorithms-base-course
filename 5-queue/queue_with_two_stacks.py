@@ -28,16 +28,14 @@ class Queue:
         return self.stack_1.push(item)
 
     def dequeue(self):
-        if self.stack_1.size() > 0:
+        if self.stack_2.size() > 0:
+            return self.stack_2.pop()
+        elif self.stack_1.size() > 0:
             while self.stack_1.size() > 0:
-                self.stack_2.push(self.stack_1.pop)
-            first = self.stack_2.pop()
-            print(self.first)
-            while self.stack_2.size() > 0:
-                self.stack_1.push(self.stack_2.pop)
-            return first
+                self.stack_2.push(self.stack_1.pop())
+            return self.stack_2.pop()
         else:
             return None
 
     def size(self):
-        return self.stack_1.size()
+        return (self.stack_1.size() + self.stack_2.size())
