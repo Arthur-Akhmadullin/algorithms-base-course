@@ -16,8 +16,7 @@ class Queue:
     def rotation(self, step):
         if self.size() > 0:
             for i in range(step):
-                head = self.dequeue()
-                self.enqueue(head)
+                self.enqueue(self.dequeue())
         else:
             print("Пустая очередь")
             return
