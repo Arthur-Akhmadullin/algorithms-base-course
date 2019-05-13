@@ -5,21 +5,30 @@
 
 from deque import Deque
 
+def find_polindrom(string):
+    deq = Deque()
+
+    for s in string:
+        deq.addFront(s)
+
+    isPalindrom = True
+
+    while deq.size() > 1 and isPalindrom:
+        head = deq.removeFront()
+        tail = deq.removeTail()
+        if head != tail:
+            isPalindrom = False
+
+    return isPalindrom
+
+
+
 string = input("Введите строку: ")
 string = ''.join(string.split()) #убираем пробелы и склеиваем символы
 string = "".join(c for c in string if c not in ('!','.',':','?',',')) #убираем знаки препинания
 string = string.lower() #приводим к нижнему регистру
 
-def find_polindrom(string):
-    deq = Deque()
-    for i in range(len(string)):
-        deq.addFront(string[i])
-        deq.addTail(string[len(string) - 1 - i])
-        if deq.removeFront() != deq.removeTail():
-            print("Это не палиндром")
-            return
-        i += 1
+if find_polindrom(string) == True:
     print("Это палиндром")
-    return
-
-find_polindrom(string)
+else:
+    print("Это не палиндром")
