@@ -11,15 +11,11 @@ def find_polindrom(string):
     for s in string:
         deq.addFront(s)
 
-    isPalindrom = True
+    while deq.size() > 1:
+        if deq.removeFront() != deq.removeTail():
+            return False
 
-    while deq.size() > 1 and isPalindrom:
-        head = deq.removeFront()
-        tail = deq.removeTail()
-        if head != tail:
-            isPalindrom = False
-
-    return isPalindrom
+    return True
 
 
 
