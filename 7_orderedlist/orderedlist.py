@@ -22,25 +22,61 @@ class OrderedList:
         # +1 если v1 > v2
 
     def add(self, value):
-        node = self.head
-        previous = None
-        stop = False
-        while node != None and not stop:
-            if node.value > value:
-                stop = True
-            else:
-                previous = node
-                node = node.next
+        if self.head is None:
+            item = Node(value)
+            self.head = item
+            item.prev = None
+            item.next = None
 
-        temp = Node(value)
-        if previous == None:
-            temp.next = self.head
-            self.head = temp
         else:
-            temp.next = node
-            previous.next = temp
-        # автоматическая вставка value
-        # в нужную позицию
+            newNode = Node(value)
+            node = self.head
+            previous = None
+            #stop = False
+
+            while node != None:
+                if self.__ascending == True:
+                    if self.compare(node.value, value) == +1:
+                        break
+                elif self.__ascending == False:
+                    if self.compare(node.value, value) == -1:
+                        break
+                else:
+                    previous = node
+                    node = node.next
+
+            '''
+            while node != None and not stop:
+                if node.value > value:
+                    stop = True
+                else:
+                    prev = node
+                    node = node.next
+            '''
+
+
+            newNode.next = node
+            newNode.prev = previous
+            previous.next = newNode
+
+
+            if node.next == None:
+                self.tail = newNode
+            else:
+                node.next.prev = newNode
+
+
+            '''
+            temp = Node(value)
+            if previous == None:
+                temp.next = self.head
+                self.head = temp
+            else:
+                temp.next = node
+                previous.next = temp
+            # автоматическая вставка value
+            # в нужную позицию
+            '''
 
     def find(self, val):
         node = self.head
