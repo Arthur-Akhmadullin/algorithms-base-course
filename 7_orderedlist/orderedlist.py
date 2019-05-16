@@ -22,61 +22,72 @@ class OrderedList:
         # +1 если v1 > v2
 
     def add(self, value):
+        '''
+        newNode = Node(value)
+
         if self.head is None:
-            item = Node(value)
-            self.head = item
-            item.prev = None
-            item.next = None
+            self.head = newNode
 
         else:
-            newNode = Node(value)
             node = self.head
             previous = None
             #stop = False
 
             while node != None:
-                if self.__ascending == True:
-                    if self.compare(node.value, value) == +1:
-                        break
-                elif self.__ascending == False:
-                    if self.compare(node.value, value) == -1:
-                        break
-                else:
-                    previous = node
-                    node = node.next
-
-            '''
-            while node != None and not stop:
-                if node.value > value:
-                    stop = True
-                else:
-                    prev = node
-                    node = node.next
-            '''
+                if self.__ascending == True and self.compare(node.value, value) == +1:
+                    break
+                if self.__ascending == False and self.compare(node.value, value) == -1:
+                    break
+                previous = node
+                node = node.next
 
 
             newNode.next = node
             newNode.prev = previous
+
+            if previous == None:
+                previous = self.head
             previous.next = newNode
+
+            if node == None:
+                self.tail.next = newNode
+                newNode.prev = self.tail
+                self.tail = newNode
 
 
             if node.next == None:
                 self.tail = newNode
             else:
                 node.next.prev = newNode
+        '''
 
+        node = self.head
+        old = None
 
-            '''
-            temp = Node(value)
-            if previous == None:
-                temp.next = self.head
-                self.head = temp
+        while node != None:
+            if self.__ascending == True and self.compare(node.value, value) == +1:
+                break
+            if self.__ascending == False and self.compare(node.value, value) == -1:
+                break
+            old = node
+            node = node.next
+
+        newNode = Node(value)
+        if old == None:
+            if self.tail == None:
+                self.head = newNode
+                self.tail = newNode
             else:
-                temp.next = node
-                previous.next = temp
-            # автоматическая вставка value
-            # в нужную позицию
-            '''
+                newNode.next = self.head
+                self.head = newNode
+                self.head.next = self.tail
+                self.tail.prev = self.head
+        else:
+            newNode.next = node
+            newNode.prev = old
+            old.next = newNode
+            node.prev = newNode
+
 
     def find(self, val):
         node = self.head
@@ -125,9 +136,6 @@ class OrderedList:
                 break
 
     def clean(self, asc):
-        self.__ascending = asc
-        pass # здесь будет ваш код
-        '''
         if self.head == None:
             return
         node = self.head
@@ -140,7 +148,9 @@ class OrderedList:
                 self.tail = None
             else:
                 self.head.prev = None
-        '''
+
+        self.__ascending = asc
+
 
     def len(self):
         if self.head is None:
@@ -160,6 +170,13 @@ class OrderedList:
             node = node.next
         return r
 
+    def print_all_nodes(self):
+
+        node = self.head
+        while node != None:
+            print(node.value)
+            node = node.next
+
 class OrderedStringList(OrderedList):
     def __init__(self, asc):
         self.head = None
@@ -167,5 +184,12 @@ class OrderedStringList(OrderedList):
         self.__ascending = asc
 
     def compare(self, v1, v2):
-        # переопределённая версия для строк
-        return 0
+        try:
+            if ''.join(v1.split()) < ''.join(v2.split()):
+                return -1
+            elif ''.join(v1.split()) == ''.join(v2.split()):
+                return 0
+            else:
+                return +1
+        except Exception:
+            print("Сравниваются не строки")
