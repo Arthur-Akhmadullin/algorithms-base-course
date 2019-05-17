@@ -22,45 +22,6 @@ class OrderedList:
         # +1 если v1 > v2
 
     def add(self, value):
-        '''
-        newNode = Node(value)
-
-        if self.head is None:
-            self.head = newNode
-
-        else:
-            node = self.head
-            previous = None
-            #stop = False
-
-            while node != None:
-                if self.__ascending == True and self.compare(node.value, value) == +1:
-                    break
-                if self.__ascending == False and self.compare(node.value, value) == -1:
-                    break
-                previous = node
-                node = node.next
-
-
-            newNode.next = node
-            newNode.prev = previous
-
-            if previous == None:
-                previous = self.head
-            previous.next = newNode
-
-            if node == None:
-                self.tail.next = newNode
-                newNode.prev = self.tail
-                self.tail = newNode
-
-
-            if node.next == None:
-                self.tail = newNode
-            else:
-                node.next.prev = newNode
-        '''
-
         node = self.head
         old = None
 
@@ -87,8 +48,6 @@ class OrderedList:
             newNode.next = node
             newNode.prev = old
             old.next = newNode
-            #node.prev = newNode # node здесь = None, эта строка неверна
-
             if node == None:
                 self.tail = newNode
             else:
@@ -106,7 +65,8 @@ class OrderedList:
                     stop = True
                 else:
                     node = node.next
-        return None # здесь будет ваш код
+        return None
+
 
     def delete(self, val):
         if self.head == None:
@@ -121,8 +81,9 @@ class OrderedList:
                 self.tail = None
             else:
                 self.head.prev = None
-            if all == False:
-                return
+            break
+            #if all == False:
+                #return
 
         while node is not None:
             while node is not None and node.value != val:
@@ -137,9 +98,10 @@ class OrderedList:
             else:
                 old.next.prev = node.prev
             node = old.next
+            break
 
-            if all == False:
-                break
+            #if all == False:
+                #break
 
     def clean(self, asc):
         if self.head == None:
@@ -176,12 +138,6 @@ class OrderedList:
             node = node.next
         return r
 
-    def print_all_nodes(self):
-
-        node = self.head
-        while node != None:
-            print(node.value)
-            node = node.next
 
 class OrderedStringList(OrderedList):
     def __init__(self, asc):
