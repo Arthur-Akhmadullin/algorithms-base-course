@@ -79,14 +79,20 @@ class OrderedList:
                 self.tail = newNode
             else:
                 newNode.next = self.head
+                self.head.prev = newNode
                 self.head = newNode
-                self.head.next = self.tail
-                self.tail.prev = self.head
+                #self.head.next = self.tail
+                #self.tail.prev = self.head
         else:
             newNode.next = node
             newNode.prev = old
             old.next = newNode
-            node.prev = newNode
+            #node.prev = newNode # node здесь = None, эта строка неверна
+
+            if node == None:
+                self.tail = newNode
+            else:
+                node.prev = newNode
 
 
     def find(self, val):
