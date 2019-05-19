@@ -61,7 +61,8 @@ class OrderedList:
             if node.value == val:
                 return node
             else:
-                if node.value > val:
+                if self.__ascending == True and node.value > val or \
+                        self.__ascending == False and node.value < val:
                     stop = True
                 else:
                     node = node.next
@@ -81,9 +82,7 @@ class OrderedList:
                 self.tail = None
             else:
                 self.head.prev = None
-            break
-            #if all == False:
-                #return
+            return
 
         while node is not None:
             while node is not None and node.value != val:
@@ -98,10 +97,8 @@ class OrderedList:
             else:
                 old.next.prev = node.prev
             node = old.next
-            break
+            return
 
-            #if all == False:
-                #break
 
     def clean(self, asc):
         if self.head == None:
@@ -118,6 +115,13 @@ class OrderedList:
                 self.head.prev = None
 
         self.__ascending = asc
+
+
+    def print_all_nodes(self):
+        node = self.head
+        while node != None:
+            print(node.value)
+            node = node.next
 
 
     def len(self):
