@@ -8,7 +8,7 @@ class OrderedList:
     def __init__(self, asc):
         self.head = None
         self.tail = None
-        self.__ascending = asc
+        self._ascending = asc
 
     def compare(self, v1, v2):
         if v1 < v2:
@@ -26,9 +26,9 @@ class OrderedList:
         old = None
 
         while node != None:
-            if self.__ascending == True and self.compare(node.value, value) == +1:
+            if self._ascending is True and self.compare(node.value, value) == +1:
                 break
-            if self.__ascending == False and self.compare(node.value, value) == -1:
+            if self._ascending is False and self.compare(node.value, value) == -1:
                 break
             old = node
             node = node.next
@@ -114,7 +114,7 @@ class OrderedList:
             else:
                 self.head.prev = None
 
-        self.__ascending = asc
+        self._ascending = asc
 
 
     def len(self):
@@ -136,19 +136,23 @@ class OrderedList:
         return r
 
 
+    def print_all_nodes(self):
+        node = self.head
+        while node != None:
+            print(node.value)
+            node = node.next
+
+
 class OrderedStringList(OrderedList):
     def __init__(self, asc):
         self.head = None
         self.tail = None
-        self.__ascending = asc
+        self._ascending = asc
 
     def compare(self, v1, v2):
-        try:
-            if ''.join(v1.split()) < ''.join(v2.split()):
-                return -1
-            elif ''.join(v1.split()) == ''.join(v2.split()):
-                return 0
-            else:
-                return +1
-        except Exception:
-            print("Сравниваются не строки")
+        if ''.join(v1.split()) < ''.join(v2.split()):
+            return -1
+        elif ''.join(v1.split()) == ''.join(v2.split()):
+            return 0
+        else:
+            return +1
