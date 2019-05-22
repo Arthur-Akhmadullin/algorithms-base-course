@@ -61,8 +61,8 @@ class OrderedList:
             if node.value == val:
                 return node
             else:
-                if self.__ascending == True and node.value > val or \
-                        self.__ascending == False and node.value < val:
+                if self._ascending == True and node.value > val or \
+                        self._ascending == False and node.value < val:
                     stop = True
                 else:
                     node = node.next
