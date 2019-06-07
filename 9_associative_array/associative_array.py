@@ -41,7 +41,7 @@ class NativeDictionary:
                 if self.slots[new_slot] == None:
                     self.slots[new_slot] = key
                     self.values[new_slot] = value
-                elif self.slots[slot] == key:
+                elif self.slots[new_slot] == key:
                     self.values[new_slot] = value
         # гарантированно записываем
         # значение value по ключу key
