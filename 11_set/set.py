@@ -48,6 +48,7 @@ class PowerSet(HashTable):
     def remove(self, value):
         if self.find(value) != None:
             self.slots[self.find(value)] = None
+            #del self.slots[self.find(value)]
             return True
         return False
 
@@ -58,19 +59,41 @@ class PowerSet(HashTable):
 
 
     def intersection(self, set2):
+        inter_set = []
+        for i in self.slots:
+            if i in set2:
+                inter_set.append(i)
         # пересечение текущего множества и set2
-        return None
+        return inter_set
 
     def union(self, set2):
+        union_set = []
+        for i in self.slots:
+            if i != None:
+                union_set.append(i)
+        for i in set2:
+            if i not in self.slots:
+                union_set.append(i)
         # объединение текущего множества и set2
-        return None
+        return union_set
 
     def difference(self, set2):
+        dif_set = []
+
+        for i in self.slots:
+            if i not in set2:
+                dif_set.append(i)
         # разница текущего множества и set2
-        return None
+        return dif_set
 
     def issubset(self, set2):
+        if len(set2) == 0:
+            return False
+
+        for i in set2:
+            if i not in self.slots:
+                return False
         # возвращает True, если set2 есть
         # подмножество текущего множества,
         # иначе False
-        return False
+        return True
