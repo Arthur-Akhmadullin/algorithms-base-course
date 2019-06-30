@@ -4,8 +4,8 @@ from HashTable import HashTable
 
 class PowerSet(HashTable):
 
-    def __init__(self):
-        HashTable.__init__(self, 20, 1)
+    def __init__(self, size_set, step_set):
+        HashTable.__init__(self, size_set, step_set)
         #self.slots = []
         # self.slots = [None] * 11 (размер массива)
         # ваша реализация хранилища
@@ -59,14 +59,24 @@ class PowerSet(HashTable):
 
 
     def intersection(self, set2):
+        '''
         inter_set = []
         for i in self.slots:
             if i in set2:
                 inter_set.append(i)
         # пересечение текущего множества и set2
         return inter_set
+        '''
+        inter_set = PowerSet(self.size(), 1)
+        #inter_set = []
+        for i in self.slots:
+            if set2.get(i) is True and i is not None: # удалить ли сравнение с None?
+                inter_set.put(i)
+        return inter_set
+
 
     def union(self, set2):
+        '''
         union_set = []
         for i in self.slots:
             if i != None:
@@ -76,21 +86,29 @@ class PowerSet(HashTable):
                 union_set.append(i)
         # объединение текущего множества и set2
         return union_set
+        '''
+        union_set = PowerSet(self.size()+set2.size(), 1)
+        for i in self.slots:
+            union_set.put(i)
+        for i in set2.slots:
+            union_set.put(i)
+        return union_set
 
     def difference(self, set2):
-        dif_set = []
-
+        #dif_set = []
+        dif_set = PowerSet(self.size(), 1)
         for i in self.slots:
-            if i not in set2:
-                dif_set.append(i)
+            if i not in set2.slots:
+                #dif_set.append(i)
+                dif_set.put(i)
         # разница текущего множества и set2
         return dif_set
 
     def issubset(self, set2):
-        if len(set2) == 0:
+        if set2.size() == 0:
             return False
 
-        for i in set2:
+        for i in set2.slots:
             if i not in self.slots:
                 return False
         # возвращает True, если set2 есть
