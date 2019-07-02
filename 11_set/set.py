@@ -3,19 +3,21 @@
 from HashTable import HashTable
 
 class PowerSet(HashTable):
-    # Замени size_set на 20000, step_set на единицу
-    def __init__(self, size_set, step_set):
+    def __init__(self, size_set=20, step_set=1):
         HashTable.__init__(self, size_set, step_set)
         self.powerset = []
         # ваша реализация хранилища
 
 
     def size(self):
+        '''
         size = 0
         for i in self.slots:
             if i is not None:
                 size += 1
         return size
+        '''
+        return len(self.slots)
         # количество элементов в множестве
 
 
@@ -38,12 +40,32 @@ class PowerSet(HashTable):
 
 
     def get(self, value):
+
         flag = True
         if self.find(value) == None:
             flag = False
         return flag
         # возвращает True если value имеется в множестве,
         # иначе False
+        '''
+
+        startslot = self.seek_slot(value)
+
+        if self.slots[startslot] == value:
+            return True
+        else:
+            pos = (startslot + 1) % self.size()
+            while self.slots[pos] != None and self.slots[pos] != value:
+                pos = (pos + 1) % self.size()
+                if pos == startslot:
+                    break
+
+        if self.slots[pos] == None or self.slots[pos] != value:
+            return False
+        elif self.slots[pos] == value:
+            return True
+        '''
+
 
 
     def remove(self, value):
@@ -89,7 +111,7 @@ class PowerSet(HashTable):
         return inter_set
         '''
 
-        inter_set = PowerSet(20000, 1)
+        inter_set = PowerSet()
         inter_array = []
         for i in self.slots:
             if set2.get(i) is True and i is not None: # удалить ли сравнение с None?
@@ -126,7 +148,7 @@ class PowerSet(HashTable):
             union_set.put(i)
         return union_set
         '''
-        union_set = PowerSet(40000, 1)
+        union_set = PowerSet(40, 1)
         union_array = []
         for i in self.slots:
             if i is not None:
@@ -140,7 +162,7 @@ class PowerSet(HashTable):
 
 
     def difference(self, set2):
-        dif_set = PowerSet(20000, 1)
+        dif_set = PowerSet()
         dif_array = []
         for i in self.slots:
             if i is not None and set2.get(i) is False:
