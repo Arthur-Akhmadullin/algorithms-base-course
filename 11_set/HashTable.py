@@ -43,7 +43,7 @@ class HashTable:
 
 
     def find(self, value):
-
+        '''
         for i in range(len(self.slots)):
             if self.slots[i] == value:
                 return i
@@ -51,19 +51,13 @@ class HashTable:
         return None
         '''
 
-        startslot = self.seek_slot(value)
+        startslot = self.hash_fun(value)
 
-        if self.slots[startslot] == value:
-            return startslot
-        else:
-            pos = (startslot + 1) % self.size_slots
-            while self.slots[pos] != None and self.slots[pos] != value:
-                pos = (pos + 1) % self.size_slots
-                if pos == startslot:
-                    break
-
-        if self.slots[pos] == None or self.slots[pos] != value:
-            return None
-        elif self.slots[pos] == value:
-            return pos
-        '''
+        find_pos = startslot
+        while self.slots[find_pos] != None:
+            if self.slots[find_pos] == value:
+                return find_pos
+            else:
+                find_pos = (find_pos + self.step) % self.size_slots
+                if find_pos == startslot:
+                    return None

@@ -10,14 +10,12 @@ class PowerSet(HashTable):
 
 
     def size(self):
-        '''
         size = 0
         for i in self.slots:
             if i is not None:
                 size += 1
         return size
-        '''
-        return len(self.slots)
+        #return len(self.slots)
         # количество элементов в множестве
 
 
@@ -40,32 +38,12 @@ class PowerSet(HashTable):
 
 
     def get(self, value):
-
         flag = True
         if self.find(value) == None:
             flag = False
         return flag
         # возвращает True если value имеется в множестве,
         # иначе False
-        '''
-
-        startslot = self.seek_slot(value)
-
-        if self.slots[startslot] == value:
-            return True
-        else:
-            pos = (startslot + 1) % self.size()
-            while self.slots[pos] != None and self.slots[pos] != value:
-                pos = (pos + 1) % self.size()
-                if pos == startslot:
-                    break
-
-        if self.slots[pos] == None or self.slots[pos] != value:
-            return False
-        elif self.slots[pos] == value:
-            return True
-        '''
-
 
 
     def remove(self, value):
@@ -80,45 +58,13 @@ class PowerSet(HashTable):
 
 
     def intersection(self, set2):
-
-        '''
-        # Делаем проверку на пустоту первого множества
-        count_elem_set1 = 0
-        for elem in self.slots:
-            if elem is not None:
-                count_elem_set1 += 1
-        if count_elem_set1 == 0:
-            return None
-
-        # Делаем проверку на пустоту множества аргумента
-        count_elem_set2 = 0
-        for elem in set2.slots:
-            if elem is not None:
-                count_elem_set2 += 1
-        if count_elem_set2 == 0:
-            return None
-
-        if self.size() < set2.size():
-            inter_set = PowerSet(self.size(), 1)
-            for elem in self.slots:
-                if set2.get(elem) and elem is not None:
-                    inter_set.put(elem)
-        else:
-            inter_set = PowerSet(set2.size(), 1)
-            for elem in set2.slots:
-                if self.get(elem) and elem is not None:
-                    inter_set.put(elem)
-        return inter_set
-        '''
-
-        inter_set = PowerSet()
+        inter_set = PowerSet(min(self.size(), set2.size()), 1)
         inter_array = []
         for i in self.slots:
             if set2.get(i) is True and i is not None: # удалить ли сравнение с None?
                 inter_set.put(i)
                 inter_array.append(i)
         return inter_array
-
 
     '''
         inter_set = PowerSet(min(self.size(), set2.size()), 1)
@@ -137,18 +83,10 @@ class PowerSet(HashTable):
         for i in inter_array:
             inter_set.put(i)
         return inter_set
-        '''
+    '''
 
     def union(self, set2):
-        '''
-        union_set = PowerSet(self.size()+set2.size(), 1)
-        for i in self.slots:
-            union_set.put(i)
-        for i in set2.slots:
-            union_set.put(i)
-        return union_set
-        '''
-        union_set = PowerSet(40, 1)
+        union_set = PowerSet(2*self.size_slots, 1)
         union_array = []
         for i in self.slots:
             if i is not None:
@@ -159,6 +97,15 @@ class PowerSet(HashTable):
                 union_set.put(i)
                 union_array.append(i)
         return union_array
+    '''
+        union_set = PowerSet(self.size()+set2.size(), 1)
+        for i in self.slots:
+            union_set.put(i)
+        for i in set2.slots:
+            union_set.put(i)
+        return union_set
+    '''
+
 
 
     def difference(self, set2):
