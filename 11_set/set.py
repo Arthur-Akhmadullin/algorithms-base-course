@@ -77,7 +77,6 @@ class HashTable:
 class PowerSet(HashTable):
     def __init__(self, size_set=20000, step_set=1):
         HashTable.__init__(self, size_set, step_set)
-        self.powerset = []
         # ваша реализация хранилища
 
 
@@ -92,10 +91,8 @@ class PowerSet(HashTable):
 
 
     def put(self, value):
-        if value == None:
-            return None
         if self.get(value) is True:
-            return self.powerset
+            return None
 
         position = self.seek_slot(value)
 
@@ -103,9 +100,7 @@ class PowerSet(HashTable):
             return None
         else:
             self.slots[position] = value
-            self.powerset.append(value) #добавил это
-            #return position
-            return self.powerset
+            return list(filter(None, self.slots))
         #всегда срабатывает
 
 
@@ -121,7 +116,6 @@ class PowerSet(HashTable):
     def remove(self, value):
         if self.find(value) != None:
             self.slots[self.find(value)] = None
-            self.powerset.remove(value)
             #del self.slots[self.find(value)]
             return True
         return False
@@ -131,63 +125,29 @@ class PowerSet(HashTable):
 
     def intersection(self, set2):
         inter_set = PowerSet(min(self.size(), set2.size()), 1)
-        inter_array = []
         for i in self.slots:
             if set2.get(i) is True and i is not None: # удалить ли сравнение с None?
                 inter_set.put(i)
-                inter_array.append(i)
-        return inter_array
+        return list(filter(None, inter_set.slots))
 
-    '''
-        inter_set = PowerSet(min(self.size(), set2.size()), 1)
-        #inter_set = []
-        for i in self.slots:
-            if set2.get(i) is True and i is not None: # удалить ли сравнение с None?
-                inter_set.put(i)
-        return inter_set
-    '''
-    '''
-        inter_array = []
-        for i in self.slots:
-            if set2.get(i) is True and i is not None:
-                inter_array.append(i)
-        inter_set = PowerSet(len(inter_array), 1)
-        for i in inter_array:
-            inter_set.put(i)
-        return inter_set
-    '''
 
     def union(self, set2):
         union_set = PowerSet(2*self.size_slots, 1)
-        union_array = []
         for i in self.slots:
             if i is not None:
                 union_set.put(i)
-                union_array.append(i)
         for i in set2.slots:
             if i is not None:
                 union_set.put(i)
-                union_array.append(i)
-        return union_array
-    '''
-        union_set = PowerSet(self.size()+set2.size(), 1)
-        for i in self.slots:
-            union_set.put(i)
-        for i in set2.slots:
-            union_set.put(i)
-        return union_set
-    '''
-
+        return list(filter(None, union_set.slots))
 
 
     def difference(self, set2):
         dif_set = PowerSet()
-        dif_array = []
         for i in self.slots:
             if i is not None and set2.get(i) is False:
                 dif_set.put(i)
-                dif_array.append(i)
-        return dif_array
+        return list(filter(None, dif_set.slots))
         # разница текущего множества и set2
 
 
