@@ -45,8 +45,9 @@ class PowerSet():
 
     def union(self, set2):
         union_set = PowerSet()
-        for i in self.powerset:
-            union_set.put(i)
+        union_set.powerset = self.powerset.copy()
+        #for i in self.powerset:
+            #union_set.put(i)
         for i in set2.powerset:
             union_set.put(i)
         return union_set
@@ -54,22 +55,32 @@ class PowerSet():
 
     def difference(self, set2):
         dif_set = PowerSet()
-        for i in self.powerset:
+        dif_set.powerset = self.powerset.copy()
+        for i in set2.powerset:
+            dif_set.remove(i)
+            if dif_set.size() == 0:
+                break
+        '''
+        for i in self.powerset:            
             if not set2.get(i):
                 dif_set.put(i)
+        '''
         return dif_set
         # разница текущего множества и set2
 
 
     def issubset(self, set2):
-        if self.size() == 0 or set2.size() == 0:
-            return False
+        flag = True
+        if self.size() == 0 or set2.size() == 0 or set2.size() > self.size():
+            flag = False
+        else:
+            for i in set2.powerset:
+                if self.get(i) is False:
+                    flag = False
+                    break
+        return flag
 
-        for i in set2.powerset:
-            if not self.get(i):
-                return False
 
-        return True
         # возвращает True, если set2 есть
         # подмножество текущего множества,
         # иначе False
