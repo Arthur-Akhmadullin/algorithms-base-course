@@ -79,8 +79,6 @@ class PowerSet():
                     flag = False
                     break
         return flag
-
-
         # возвращает True, если set2 есть
         # подмножество текущего множества,
         # иначе False
