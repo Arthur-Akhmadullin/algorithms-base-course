@@ -71,8 +71,10 @@ class PowerSet():
 
     def issubset(self, set2):
         flag = True
-        if self.size() == 0 or set2.size() == 0 or set2.size() > self.size():
+        if set2.size() > self.size():
             flag = False
+        elif set2.size() == 0:
+            flag = True
         else:
             for i in set2.powerset:
                 if self.get(i) is False:
