@@ -43,14 +43,12 @@ class NativeDictionary:
                 if self.slots[new_slot] == None:
                     self.slots[new_slot] = key
                     self.values[new_slot] = value
-                    self.hits[slot] += 1 #add
                 elif self.slots[new_slot] == key:
                     self.values[new_slot] = value
-                    self.hits[slot] += 1 #add
                 else:
                     min_key_slot = self.hits.index(min(self.hits))
-                    self.slots(min_key_slot) = key
-                    self.values(min_key_slot) = value
+                    self.slots[min_key_slot] = key
+                    self.values[min_key_slot] = value
 
 
         # гарантированно записываем
