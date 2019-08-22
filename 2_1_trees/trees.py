@@ -20,7 +20,7 @@ class SimpleTree:
 
     def DeleteNode(self, NodeToDelete):
         #ДОБАВИТЬ БЛОК TRY EXCEPT - ПОПЫТКА УДАЛЕНИЯ КОРНЕВОГО УЗЛА
-        if len(NodeToDelete.Children) > 0:
+        if NodeToDelete is not self.Root and len(NodeToDelete.Children) > 0:
             for children in NodeToDelete.Children:
                 children.Parent = NodeToDelete.Parent
                 NodeToDelete.Parent.Children.append(children)
@@ -99,6 +99,28 @@ class SimpleTree:
             for children in Node.Children:
                 array += self.RecursiveGetAllNodes(children)
         return array
+
+
+    def FindNodeLevel(self):
+        keys = self.RecursiveGetAllNodes(self.Root)
+        level = self.RecursiveTraversalForFindNodeLevel(self.Root, 0)
+        dict_level = dict(zip(keys, level))
+        return dict_level
+
+
+
+    def RecursiveTraversalForFindNodeLevel(self, Node, level):
+        dict_level = []
+        dict_level.append(level)
+
+
+        if Node.Children:
+            level += 1
+            for children in Node.Children:
+                dict_level += self.RecursiveTraversalForFindNodeLevel(children, level)
+
+        return dict_level
+
 
 
 
