@@ -35,8 +35,10 @@ class SimpleTree:
 
 
     def GetAllNodes(self):
+        array = []
         if self.Root is not None:
-            return self.RecursiveGetAllNodes(self.Root)
+            array = self.RecursiveGetAllNodes(self.Root)
+        return array
         # ваш код выдачи всех узлов дерева в определённом порядке
         #pass
 
