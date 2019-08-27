@@ -23,25 +23,28 @@ class SimpleTree:
 
     def DeleteNode(self, NodeToDelete):
         #ДОБАВИТЬ БЛОК TRY EXCEPT - ПОПЫТКА УДАЛЕНИЯ КОРНЕВОГО УЗЛА
-        if NodeToDelete is not self.Root and len(NodeToDelete.Children) > 0:
-            for children in NodeToDelete.Children:
-                children.Parent = NodeToDelete.Parent
-                NodeToDelete.Parent.Children.append(children)
-        NodeToDelete.Parent.Children.remove(NodeToDelete)
-        NodeToDelete.Parent = None
-        NodeToDelete.Children.clear()
+        if NodeToDelete is not self.Root:
+            if len(NodeToDelete.Children) > 0:
+                for children in NodeToDelete.Children:
+                    children.Parent = NodeToDelete.Parent
+                    NodeToDelete.Parent.Children.append(children)
+            NodeToDelete.Parent.Children.remove(NodeToDelete)
+            NodeToDelete.Parent = None
+            NodeToDelete.Children.clear()
         #pass # ваш код удаления существующего узла NodeToDelete
 
 
     def GetAllNodes(self):
-        return self.RecursiveGetAllNodes(self.Root)
+        if self.Root is not None:
+            return self.RecursiveGetAllNodes(self.Root)
         # ваш код выдачи всех узлов дерева в определённом порядке
         #pass
 
 
     def FindNodesByValue(self, val):
         # ваш код поиска узлов по значению
-        return self.RecursiveFindNodes(self.Root, val)
+        if self.Root is not None:
+            return self.RecursiveFindNodes(self.Root, val)
 
 
     def MoveNode(self, OriginalNode, NewParent):
@@ -57,17 +60,16 @@ class SimpleTree:
         # количество всех узлов в дереве
         count = 0
         if self.Root is not None:
-            return self.RecursiveTraversalForDefCount(self.Root)
-        #return count
+            count = self.RecursiveTraversalForDefCount(self.Root)
+        return count
 
 
     def LeafCount(self):
         lcount = 0
         if self.Root is not None:
-            #node = self.Root
-            return self.RecursiveTraversal(self.Root)
+            lcount = self.RecursiveTraversal(self.Root)
+        return lcount
         # количество листьев в дереве
-        #return lcount
 
 
     def FindNodeLevel(self):
@@ -88,7 +90,7 @@ class SimpleTree:
 
 
     def RecursiveTraversalForDefCount(self, Node):
-        count = 1
+        count = 0
         if Node.Children:
             count += 1
             for children in Node.Children:
