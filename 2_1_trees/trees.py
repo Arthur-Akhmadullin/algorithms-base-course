@@ -22,7 +22,7 @@ class SimpleTree:
 
 
     def DeleteNode(self, NodeToDelete):
-        #ДОБАВИТЬ БЛОК TRY EXCEPT - ПОПЫТКА УДАЛЕНИЯ КОРНЕВОГО УЗЛА
+        # ваш код удаления существующего узла NodeToDelete
         if NodeToDelete is not self.Root:
             if len(NodeToDelete.Children) > 0:
                 for children in NodeToDelete.Children:
@@ -31,22 +31,29 @@ class SimpleTree:
             NodeToDelete.Parent.Children.remove(NodeToDelete)
             NodeToDelete.Parent = None
             NodeToDelete.Children.clear()
-        #pass # ваш код удаления существующего узла NodeToDelete
+
 
 
     def GetAllNodes(self):
+        # ваш код выдачи всех узлов дерева в определённом порядке
         array = []
         if self.Root is not None:
             array = self.RecursiveGetAllNodes(self.Root)
         return array
-        # ваш код выдачи всех узлов дерева в определённом порядке
-        #pass
+
 
 
     def FindNodesByValue(self, val):
         # ваш код поиска узлов по значению
+        '''
         if self.Root is not None:
             return self.RecursiveFindNodes(self.Root, val)
+        '''
+        array = []
+        for node in self.GetAllNodes():
+            if node.NodeValue == val:
+                array.append(node)
+        return array
 
 
     def MoveNode(self, OriginalNode, NewParent):
@@ -60,18 +67,29 @@ class SimpleTree:
 
     def Count(self):
         # количество всех узлов в дереве
+        '''
         count = 0
         if self.Root is not None:
             count = self.RecursiveTraversalForDefCount(self.Root)
         return count
+        '''
+        return len(self.GetAllNodes())
+
 
 
     def LeafCount(self):
+        '''
         lcount = 0
         if self.Root is not None:
             lcount = self.RecursiveTraversal(self.Root)
         return lcount
+        '''
         # количество листьев в дереве
+        lcount = 0
+        for node in self.GetAllNodes():
+            if node.Children == []:
+                lcount += 1
+        return lcount
 
 
     def FindNodeLevel(self):
@@ -80,7 +98,12 @@ class SimpleTree:
         dict_level = dict(zip(keys, level))
         return dict_level
 
-
+    '''
+    Рекурсиные функции использовались до создания функции GetAllNodes().
+    После подсчета узлов и листьев, а также поиска по значению с помощью GetAllNodes()
+    закомментировал за ненадобностью.
+    
+    
     def RecursiveTraversal(self, Node):
         leaf_count = 0
         if Node.Children:
@@ -110,6 +133,7 @@ class SimpleTree:
             for children in Node.Children:
                 array += (self.RecursiveFindNodes(children, value))
         return array
+    '''
 
 
     def RecursiveGetAllNodes(self, Node):
