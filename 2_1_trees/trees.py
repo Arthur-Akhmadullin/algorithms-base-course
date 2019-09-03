@@ -13,12 +13,21 @@ class SimpleTree:
 
 
     def AddChild(self, ParentNode, NewChild):
+        #pass # ваш код добавления нового дочернего узла существующему ParentNode
+        '''
         if ParentNode is None:
             self.Root = NewChild
         elif NewChild not in ParentNode.Children \
                 and NewChild.Parent == ParentNode:
             ParentNode.Children.append(NewChild)
-        #pass # ваш код добавления нового дочернего узла существующему ParentNode
+        '''
+        if self.Root is None:
+            self.Root = NewChild
+        elif ParentNode and NewChild not in ParentNode.Children:
+            NewChild.Parent = ParentNode
+            ParentNode.Children.append(NewChild)
+
+
 
 
     def DeleteNode(self, NodeToDelete):
@@ -57,12 +66,12 @@ class SimpleTree:
 
 
     def MoveNode(self, OriginalNode, NewParent):
+        # ваш код перемещения узла вместе с его поддеревом --
+        # в качестве дочернего для узла NewParent
         OriginalNode.Parent.Children.remove(OriginalNode)
         NewParent.Children.append(OriginalNode)
         OriginalNode.Parent = NewParent
-        # ваш код перемещения узла вместе с его поддеревом --
-        # в качестве дочернего для узла NewParent
-        #pass
+
 
 
     def Count(self):
@@ -153,7 +162,3 @@ class SimpleTree:
             for children in Node.Children:
                 array_level += self.RecursiveTraversalForFindNodeLevel(children, level)
         return array_level
-
-
-
-
