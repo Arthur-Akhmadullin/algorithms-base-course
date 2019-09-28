@@ -104,8 +104,47 @@ class BST:
         if self.FindNodeByKey(key).NodeHasKey == False:
             return False # если узел не найден
         else:
-            self._DeleteNodeByKey(self.Root, key)
+            self._DeleteNodeByKey(self._FindNodeByKey(key, self.Root))
             return True
+
+    def _DeleteNodeByKey(self, node):
+        if node.LeftChild != None and node.RightChild != None:
+            minNode = self.FinMinMax(node.RightChild, False)
+            node.NodeKey = minNode.NodeKey
+            node.NodeValue = minNode.NodeValue
+            return self._DeleteNodeByKey(minNode)
+        elif node.LeftChild != None:
+            if node == node.Parent.LeftChild:
+                node.Parent.LeftChild = node.LeftChild
+            else:
+                node.Parent.RightChild = node.LeftChild
+            node.LeftChild.Parent = node.Parent
+            node = node.LeftChild
+        elif node.RightChild != None:
+            if node == node.Parent.RightChild:
+                node.Parent.RightChild = node.RightChild
+            else:
+                node.Parent.LeftChild = node.RightChild
+            node.RightChild.Parent = node.Parent
+            node = node.RightChild
+        else:
+            if node == node.Parent.LeftChild:
+                node.Parent.LeftChild = None
+            else:
+                node.Parent.RightChild = None
+        return node
+
+
+
+
+
+    '''
+        elif node.LeftChild != None and node.RightChild != None:
+            node.NodeKey = self.FinMinMax(node.RightChild, False).NodeKey
+            node.NodeValue = self.FinMinMax(node.RightChild, False).NodeValue
+            #node.RightChild = self._DeleteNodeByKey(node.RightChild, node.NodeKey)
+            node.RightChild = self._DeleteNodeByKey(node.RightChild, self.FinMinMax(node.RightChild, False).NodeKey)
+    
 
 
     def _DeleteNodeByKey(self, node, key):
@@ -133,7 +172,7 @@ class BST:
             node.RightChild = self._DeleteNodeByKey(node.RightChild, node.NodeKey)
 
         return node
-    '''
+    
         elif node.LeftChild != None and node.RightChild != None:
             node.NodeKey = self.FinMinMax(node.RightChild, False).NodeKey
             node.NodeValue = self.FinMinMax(node.RightChild, False).NodeValue
