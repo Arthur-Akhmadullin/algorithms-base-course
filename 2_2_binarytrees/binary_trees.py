@@ -29,14 +29,30 @@ class BST:
         # возвращает BSTFind
         self.find_node = BSTFind()
         if self.Root == None:
-            return None
+            return self.find_node
         else:
             self.find_node.Node = self._FindNodeByKey(key, self.Root)
-            if self.find_node.Node is not None:
-                self.find_node.NodeHasKey = True
+            if self.find_node.Node != None:
+                if self.find_node.Node == self.Root:
+                    self.find_node.Node = None
+                    self.find_node.NodeHasKey = False
+                else:
+                    self.find_node.NodeHasKey = True
             else:
                 self.find_node.NodeHasKey = False
             return self.find_node
+
+
+    """
+        else:
+            self.find_node.Node = self._FindNodeByKey(key, self.Root)
+            if self.find_node.Node == None:
+                self.find_node.NodeHasKey = False
+                return None
+            else:
+                self.find_node.NodeHasKey = True
+                return self.find_node
+    """
 
 
     def AddKeyValue(self, key, val):
@@ -75,13 +91,11 @@ class BST:
 
 
     def _FindNodeByKey(self, key, node):
-        if node == None:
-            return None
         if key == node.NodeKey:
             return node
-        elif key < node.NodeKey:# and node.LeftChild is not None:
+        elif key < node.NodeKey and node.LeftChild is not None:
             return self._FindNodeByKey(key, node.LeftChild)
-        elif key > node.NodeKey:# and node.RightChild != None:
+        elif key > node.NodeKey and node.RightChild != None:
             return self._FindNodeByKey(key, node.RightChild)
 
 
