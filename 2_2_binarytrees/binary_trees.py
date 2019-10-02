@@ -27,32 +27,18 @@ class BST:
     def FindNodeByKey(self, key):
         # ищем в дереве узел и сопутствующую информацию по ключу
         # возвращает BSTFind
-        self.find_node = BSTFind()
+        find_node = BSTFind()
         if self.Root == None:
-            return self.find_node
-        else:
-            self.find_node.Node = self._FindNodeByKey(key, self.Root)
-            if self.find_node.Node != None:
-                if self.find_node.Node == self.Root:
-                    self.find_node.Node = None
-                    self.find_node.NodeHasKey = False
-                else:
-                    self.find_node.NodeHasKey = True
-            else:
-                self.find_node.NodeHasKey = False
-            return self.find_node
+            return find_node
+
+        #if self.Root.LeftChild == None and self.Root.RightChild == None\
+         #       and self.Root.NodeKey != key:
+           # return find_node
+
+        self._FindNodeByKey(key, self.Root, find_node)
+        return find_node
 
 
-    """
-        else:
-            self.find_node.Node = self._FindNodeByKey(key, self.Root)
-            if self.find_node.Node == None:
-                self.find_node.NodeHasKey = False
-                return None
-            else:
-                self.find_node.NodeHasKey = True
-                return self.find_node
-    """
 
 
     def AddKeyValue(self, key, val):
@@ -90,13 +76,23 @@ class BST:
         return self._CountNodes(self.Root)
 
 
-    def _FindNodeByKey(self, key, node):
+    def _FindNodeByKey(self, key, node, fnode):
+        #if node != None:
+            #fnode.Node = node
+        if node == None:
+            return
         if key == node.NodeKey:
-            return node
-        elif key < node.NodeKey and node.LeftChild is not None:
-            return self._FindNodeByKey(key, node.LeftChild)
-        elif key > node.NodeKey and node.RightChild != None:
-            return self._FindNodeByKey(key, node.RightChild)
+            #fnode.Node = node #заменить на условие сверху
+            fnode.NodeHasKey = True
+            #return node
+        elif key < node.NodeKey:
+            fnode.Node = node #заменить на условие сверху
+            fnode.ToLeft = True
+            return self._FindNodeByKey(key, node.LeftChild, fnode)
+        elif key > node.NodeKey:
+            fnode.Node = node #заменить на условие сверху
+            fnode.ToLeft = False
+            return self._FindNodeByKey(key, node.RightChild, fnode)
 
 
     def _AddKeyValue(self, node, newnode):
