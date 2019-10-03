@@ -87,15 +87,14 @@ class BST:
         if node == None:
             return
         if key == node.NodeKey:
-            #fnode.Node = node #заменить на условие сверху
             fnode.NodeHasKey = True
-            #return node
+            return
         elif key < node.NodeKey:
-            fnode.Node = node #заменить на условие сверху
+            fnode.Node = node
             fnode.ToLeft = True
             return self._FindNodeByKey(key, node.LeftChild, fnode)
         elif key > node.NodeKey:
-            fnode.Node = node #заменить на условие сверху
+            fnode.Node = node
             fnode.ToLeft = False
             return self._FindNodeByKey(key, node.RightChild, fnode)
 
