@@ -47,11 +47,16 @@ class BST:
             self.Root = BSTNode(key, val, None)
             return True
         else:
-            if self.FindNodeByKey(key).NodeHasKey == True:
+            resultOfFindKey = self.FindNodeByKey(key)
+            if resultOfFindKey.NodeHasKey == True:
                 return False
             else:
                 newnode = BSTNode(key, val, None)
-                self._AddKeyValue(self.Root, newnode)
+                newnode.Parent = resultOfFindKey.Node
+                if resultOfFindKey.ToLeft == True:
+                    resultOfFindKey.Node.LeftChild = newnode
+                else:
+                    resultOfFindKey.Node.RightChild = newnode
                 return True
 
 
