@@ -72,7 +72,10 @@ class BST:
         if self.FindNodeByKey(key).NodeHasKey == False:
             return False # если узел не найден
         else:
-            self._DeleteNodeByKey(self._FindNodeByKey(key, self.Root))
+            if self.FindNodeByKey(key).ToLeft == True:
+                self._DeleteNodeByKey(self.FindNodeByKey(key).Node.LeftChild)
+            else:
+                self._DeleteNodeByKey(self.FindNodeByKey(key).Node.RightChild)
             return True
 
 
