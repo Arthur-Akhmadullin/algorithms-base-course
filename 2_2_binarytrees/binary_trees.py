@@ -133,11 +133,13 @@ class BST:
 
 
     def _DeleteNodeByKey(self, node):
+        # Если у удаляемого узла есть оба потомка
         if node.LeftChild != None and node.RightChild != None:
             minNode = self.FinMinMax(node.RightChild, False)
             node.NodeKey = minNode.NodeKey
             node.NodeValue = minNode.NodeValue
             return self._DeleteNodeByKey(minNode)
+        # Если у удаляемого узла только левый потомок
         elif node.LeftChild != None:
             if node == node.Parent.LeftChild:
                 node.Parent.LeftChild = node.LeftChild
@@ -145,6 +147,7 @@ class BST:
                 node.Parent.RightChild = node.LeftChild
             node.LeftChild.Parent = node.Parent
             node = node.LeftChild
+        # Если у удаляемого узла только правый потомок
         elif node.RightChild != None:
             if node == node.Parent.RightChild:
                 node.Parent.RightChild = node.RightChild
@@ -152,11 +155,14 @@ class BST:
                 node.Parent.LeftChild = node.RightChild
             node.RightChild.Parent = node.Parent
             node = node.RightChild
+        # Если удаляемый узел - это лист
         else:
             if node == node.Parent.LeftChild:
                 node.Parent.LeftChild = None
+                node.Parent = None
             else:
                 node.Parent.RightChild = None
+                node.Parent = None
         return node
 
 
