@@ -102,24 +102,6 @@ class BST:
             return self._FindNodeByKey(key, node.RightChild, fnode)
 
 
-    def _AddKeyValue(self, node, newnode):
-        while node != None:
-            if newnode.NodeKey > node.NodeKey:
-                if node.RightChild != None:
-                    node = node.RightChild
-                else:
-                    newnode.Parent = node
-                    node.RightChild = newnode
-                    break
-            elif newnode.NodeKey < node.NodeKey:
-                if node.LeftChild != None:
-                    node = node.LeftChild
-                else:
-                    newnode.Parent = node
-                    node.LeftChild = newnode
-                    break
-
-
     def _FindMaximum(self, node):
         if node.RightChild == None:
             return node
