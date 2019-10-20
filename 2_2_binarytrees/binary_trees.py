@@ -11,8 +11,8 @@ class BSTNode:
 class BSTFind: # промежуточный результат поиска
 
     def __init__(self):
-        self.Node = None # None если не найден узел,
-        # и в дереве только один корень
+        self.Node = None # # None если
+        # в дереве вообще нету узлов
 
         self.NodeHasKey = False # True если узел найден
         self.ToLeft = False # True, если родительскому узлу надо
@@ -72,10 +72,13 @@ class BST:
         if self.FindNodeByKey(key).NodeHasKey == False:
             return False # если узел не найден
         else:
+            self._DeleteNodeByKey(self.FindNodeByKey(key).Node)
+            '''
             if self.FindNodeByKey(key).ToLeft == True:
                 self._DeleteNodeByKey(self.FindNodeByKey(key).Node.LeftChild)
             else:
                 self._DeleteNodeByKey(self.FindNodeByKey(key).Node.RightChild)
+            '''
             return True
 
 
@@ -90,6 +93,7 @@ class BST:
         if node == None:
             return
         if key == node.NodeKey:
+            fnode.Node = node # добавил сегодня
             fnode.NodeHasKey = True
             return
         elif key < node.NodeKey:
@@ -128,7 +132,9 @@ class BST:
             else:
                 node.Parent.RightChild = node.LeftChild
             node.LeftChild.Parent = node.Parent
-            node = node.LeftChild
+            #node = node.LeftChild
+            node.Parent = None #1 - добавил вместо node = node.LeftChild
+            node.LeftChild = None #2 - добавил вместо node = node.LeftChild
         # Если у удаляемого узла только правый потомок
         elif node.RightChild != None:
             if node == node.Parent.RightChild:
@@ -136,7 +142,9 @@ class BST:
             else:
                 node.Parent.LeftChild = node.RightChild
             node.RightChild.Parent = node.Parent
-            node = node.RightChild
+            #node = node.RightChild
+            node.Parent = None #1 - добавил вместо node = node.RightChild
+            node.RightChild = None #2 - добавил вместо node = node.RightChild
         # Если удаляемый узел - это лист
         else:
             if node == node.Parent.LeftChild:
