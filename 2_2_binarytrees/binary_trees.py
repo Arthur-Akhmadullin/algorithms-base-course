@@ -162,3 +162,69 @@ class BST:
         else:
             return self._CountNodes(node.LeftChild) + self._CountNodes(node.RightChild) + 1
         return count
+
+
+    # Поиск в ширину, начиная с корня
+    def WideAllNodes(self):
+        listOfNodes = ()
+        queue = []
+
+        if self.Root != None:
+            queue.append(self.Root)
+            while len(queue) > 0:
+                tempNode = queue.pop(0)
+                listOfNodes += (tempNode, )
+                if tempNode.LeftChild:
+                    queue.append(tempNode.LeftChild)
+                if tempNode.RightChild:
+                    queue.append(tempNode.RightChild)
+        return listOfNodes
+
+
+    # Поиск в глубину. В качестве параметра принимает число:
+    # 0 - InOrder
+    # 1 - PostOrder
+    # 2 - PreOrder
+    def DeepAllNodes(self, type_order):
+        if type_order > 2:
+            return
+        listOfNodes = []
+        if self.Root != None:
+            if type_order == 0:
+                self.InOrder(listOfNodes, self.Root)
+            elif type_order == 1:
+                self.PostOrder(listOfNodes, self.Root)
+            elif type_order == 2:
+                self.PreOrder(listOfNodes, self.Root)
+            else:
+                return None
+        return tuple(listOfNodes)
+
+
+    def InOrder(self, tupleNodes, node):
+        if node == None:
+            return
+        self.InOrder(tupleNodes, node.LeftChild)
+        tupleNodes.append(node)
+        self.InOrder(tupleNodes, node.RightChild)
+        return tupleNodes
+
+
+    def PostOrder(self, tupleNodes, node):
+        if node == None:
+            return
+        self.PostOrder(tupleNodes, node.LeftChild)
+        self.PostOrder(tupleNodes, node.RightChild)
+        tupleNodes.append(node)
+        return tupleNodes
+
+
+    def PreOrder(self, tupleNodes, node):
+        if node == None:
+            return
+        tupleNodes.append(node)
+        self.PreOrder(tupleNodes, node.LeftChild)
+        self.PreOrder(tupleNodes, node.RightChild)
+        return tupleNodes
+
+
