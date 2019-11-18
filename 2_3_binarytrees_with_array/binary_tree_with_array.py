@@ -14,8 +14,9 @@ class aBST:
         # добавляем ключ в массив
         if self.FindKeyIndex(key) < 0:
             return self._AddKey(0, key)
-        else:
+        elif self.FindKeyIndex(key) == None:
             return -1
+        return self.FindKeyIndex(key)
         # индекс добавленного/существующего ключа или -1 если не удалось
 
 
