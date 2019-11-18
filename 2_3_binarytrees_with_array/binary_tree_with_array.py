@@ -12,11 +12,13 @@ class aBST:
 
     def AddKey(self, key):
         # добавляем ключ в массив
-        if self.FindKeyIndex(key) < 0:
-            return self._AddKey(0, key)
-        elif self.FindKeyIndex(key) == None:
+        resultOfFind = self.FindKeyIndex(key)
+        if resultOfFind is None:
             return -1
-        return self.FindKeyIndex(key)
+        if resultOfFind < 0:
+            return self._AddKey(0, key)
+        else:
+            return resultOfFind
         # индекс добавленного/существующего ключа или -1 если не удалось
 
 
