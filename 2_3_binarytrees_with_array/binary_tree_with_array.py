@@ -16,7 +16,15 @@ class aBST:
         if resultOfFind is None:
             return -1
         if resultOfFind < 0:
-            return self._AddKey(0, key)
+            return self._AddKey(-1 * resultOfFind, key)
+            # index = -1 * resultOfFind
+            # self.Tree[index] = key
+            # return index
+        elif resultOfFind == 0:
+            if self.Tree[0] == key:
+                return 0
+            else:
+                return self._AddKey(0, key)
         else:
             return resultOfFind
         # индекс добавленного/существующего ключа или -1 если не удалось
@@ -39,7 +47,7 @@ class aBST:
             if self.Tree[i] == key:
                 return i
             elif self.Tree[i] == None:
-                return i*(-1) - 1
+                return i*(-1)
             elif key < self.Tree[i]:
                 return self._FindKeyIndex(self.left(i), key)
             elif key > self.Tree[i]:
@@ -47,12 +55,6 @@ class aBST:
         else:
             return None
 
-
     def _AddKey(self, i, key):
-        if self.Tree[i] == None:
-            self.Tree[i] = key
-            return i
-        elif key < self.Tree[i]:
-            return self._AddKey(self.left(i), key)
-        elif key > self.Tree[i]:
-            return self._AddKey(self.rigth(i), key)
+        self.Tree[i] = key
+        return i
