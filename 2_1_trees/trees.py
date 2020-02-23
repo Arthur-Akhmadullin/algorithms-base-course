@@ -162,3 +162,23 @@ class SimpleTree:
             for children in Node.Children:
                 array_level += self.RecursiveTraversalForFindNodeLevel(children, level)
         return array_level
+
+
+    def EvenTrees(self):
+        list_remove_edges = []
+        if self.Count() % 2 != 0:
+            return
+        else:
+            return self.RecursiveEvenTrees(self.Root)
+            #return []
+
+
+    def RecursiveEvenTrees(self, node):
+        edge = []
+        if node.Children != []:
+            for children in node.Children:
+                if len(self.RecursiveGetAllNodes(children)) % 2 == 0:
+                    edge.append(node.NodeValue)
+                    edge.append(children.NodeValue)
+                edge += self.RecursiveEvenTrees(children)
+        return edge
