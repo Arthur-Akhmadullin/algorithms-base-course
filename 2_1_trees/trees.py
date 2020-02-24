@@ -178,7 +178,9 @@ class SimpleTree:
         if node.Children != []:
             for children in node.Children:
                 if len(self.RecursiveGetAllNodes(children)) % 2 == 0:
-                    edge.append(node.NodeValue)
-                    edge.append(children.NodeValue)
+                    #edge.append(node.NodeValue)
+                    #edge.append(children.NodeValue)
+                    edge.append(node)
+                    edge.append(children)
                 edge += self.RecursiveEvenTrees(children)
         return edge
