@@ -55,13 +55,13 @@ class SimpleGraph:
 
 
     def DepthFirstSearch(self, VFrom, VTo):
+        # узлы задаются позициями в списке vertex
+        # возвращается список узлов -- путь из VFrom в VTo
+        # или [] если пути нету
         stack = []
         for v in self.vertex:
             v.Hit = False
         return self.RecursiveDepthFirstSearch(self.vertex[VFrom], self.vertex[VTo], stack, True)
-        # узлы задаются позициями в списке vertex
-        # возвращается список узлов -- путь из VFrom в VTo
-        # или [] если пути нету
 
 
 
@@ -88,7 +88,6 @@ class SimpleGraph:
             if stack == []:
                 return stack
             else:
-                #return self.SearchTargetVertex(stack[-1], VTo)
                 return self.RecursiveDepthFirstSearch(stack[-1], VTo, stack, False)
 
 
@@ -97,9 +96,6 @@ class SimpleGraph:
         for i in range(len(self.vertex)):
             if self.IsEdge(self.vertex.index(VFrom), i) is True and \
                     self.vertex[i] is VTo and self.vertex[i].Hit is False:
-                # ДОБАВИЛ self.vertex[i].Hit is False
-                #stack.append(v)
-                #return stack
                 return self.vertex[i]
         return None
 
@@ -111,10 +107,69 @@ class SimpleGraph:
                 return self.vertex[i]
         return None
 
-    '''
-        def PopStack(self, stack):
-            stack.pop()
-            if stack == []:
-                return None
-            return stack[-1]
-    '''
+
+    def BreadthFirstSearch(self, VFrom, VTo):
+        # узлы задаются позициями в списке vertex
+        # возвращается список узлов -- путь из VFrom в VTo
+        # или [] если пути нету
+        queue = []
+        visited = {}
+        flagTarget = False
+        level = 0
+
+        for v in self.vertex:
+            v.Hit = False
+
+        self.vertex[VFrom].Hit = True
+        queue.append(self.vertex[VFrom])
+        visited[self.vertex[VFrom]] = level
+
+        while queue:
+            currentVertex = queue.pop(0)
+            queue += self.AddQueue(currentVertex, visited)
+            for v in queue:
+                if v is self.vertex[VTo]:
+                    flagTarget = True
+                    break
+            if flagTarget == True:
+                break
+
+        if self.vertex[VTo] not in visited.keys():
+            return []
+        return self.BuildWay(visited, self.vertex[VFrom], self.vertex[VTo])
+
+
+    def AddQueue(self, VFrom, visited):
+        adjecentArray = []
+        for i in range(len(self.vertex)):
+            if self.IsEdge(self.vertex.index(VFrom), i) is True and self.vertex[i].Hit is False:
+                visited[self.vertex[i]] = visited.get(VFrom) + 1
+                self.vertex[i].Hit = True
+                adjecentArray.append(self.vertex[i])
+        return adjecentArray
+
+
+    def BuildWay(self, dic, VFrom, VTo):
+        list_keys = []
+        way = []
+        node = None
+
+        for key in dic.keys():
+            list_keys.append([key, dic.get(key)])
+
+        for i in range(len(list_keys)):
+            if list_keys[i][0] is VTo:
+                node = list_keys[i]
+                way.append(list_keys[i][0])
+                del list_keys[i]
+                break
+
+        while VFrom not in way:
+            for i in range(len(list_keys)-1, -1, -1):
+                if self.IsEdge(self.vertex.index(node[0]), self.vertex.index(list_keys[i][0])) is True and \
+                        node[1] - 1 == list_keys[i][1]:
+                    node = list_keys.pop(i)
+                    way.append(node[0])
+                    break
+
+        return list(reversed(way))
