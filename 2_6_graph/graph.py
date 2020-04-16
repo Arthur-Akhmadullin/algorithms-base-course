@@ -173,3 +173,24 @@ class SimpleGraph:
                     break
 
         return list(reversed(way))
+
+
+    def WeakVertices(self):
+        # возвращает список узлов вне треугольников
+        weak_vertices = []
+        set_vertex = set()
+
+        for a in range(0, self.max_vertex):
+            for b in range(a + 1, self.max_vertex):
+                if not self.m_adjacency[a][b]:
+                    continue
+                for c in range(b + 1, self.max_vertex):
+                    if self.m_adjacency[b][c] and self.m_adjacency[a][c]:
+                        set_vertex.add(self.vertex[a])
+                        set_vertex.add(self.vertex[b])
+                        set_vertex.add(self.vertex[c])
+
+        for v in self.vertex:
+            if v not in set_vertex:
+                weak_vertices.append(v)
+        return weak_vertices
